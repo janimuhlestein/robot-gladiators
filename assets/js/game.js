@@ -4,18 +4,12 @@ var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
-var enemyName = "Roberto";
+//var enemyName = "Roberto";
+var enemyNames = ["Roberto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
-//log info
-console.log(playerName, playerHealth, playerAttack);
-// create a function
-
-//log enemy info
-console.log(enemyName, enemyHealth, enemyAttack);
-
-var fight = function() {
+var fight = function(enemyName) {
 
     //welcome users
     window.alert("Welcome to Robot Gladiators!");
@@ -24,58 +18,50 @@ var fight = function() {
     var promptFight=window.prompt("Would you like to fight or skip this round?");
 
     //if they want to fight, then fight
-    if(promptFight=="fight" || promptFight=="FIGHT"){
-        window.alert(playerName + " has chosen to fight this round.");
-
-    playerHealth -= enemyAttack
-    enemyHealth -= playerAttack;
-
-    //log a message
-    console.log(`${playerName} attacked ${enemyName}, and ${enemyName} now has ${enemyHealth}`);
-    console.log(`${enemyName} attacked ${playerName}, and ${playerName} now has ${playerHealth}`);
-    
-    //make it actually play
-    while(playerHealth > 0 && enemyHealth >0){
-        enemyHealth -= playerAttack;
-        playerHealth -= enemyAttack;
-    
-    if(playerHealth > 0) {
-        window.alert(enemyName + " has attacked, but You are still alive! You have " + playerHealth);
-    }
-    else {
-        console.log("Sorry, you died!");
-    }
-
-    if(enemyHealth <= 0) {
-        window.alert(enemyName + " has died! You have won!");
-    }
-    else {
-        window.alert(enemyName + " still has " + enemyHealth + " left.");
-    }
-    }
-}
-
-    //if they want to skip, then skip, but it costs them
-    else if(promptFight=="skip" || promptFight=="SKIP") {
-        var skipAns = window.confirm("Are you sure you want to skip this round?");
-            window.alert(playerName + " has chosen to skip this round!");
-            console.log(skipAns);
-            if(skipAns){
-                playerMoney -=2;
-                console.log(playerMoney);
-                console.log(skipAns);
+    if (promptFight === "fight" || promptFight === "FIGHT") {
+        // remove enemy's health by subtracting the amount set in the playerAttack variable
+        enemyHealth = enemyHealth - playerAttack;
+        console.log(
+          playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
+        );
+      
+        // check enemy's health
+        if (enemyHealth <= 0) {
+          window.alert(enemyName + " has died!");
+        } else {
+          window.alert(enemyName + " still has " + enemyHealth + " health left.");
+        }
+      
+        // remove player's health by subtracting the amount set in the enemyAttack variable
+        playerHealth = playerHealth - enemyAttack;
+        console.log(
+          enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
+        );
+      
+        // check player's health
+        if (playerHealth <= 0) {
+          window.alert(playerName + " has died!");
+        } else {
+          window.alert(playerName + " still has " + playerHealth + " health left.");
+        }
+        // if player choses to skip
+      } else if (promptFight === "skip" || promptFight === "SKIP") {
+          var confirmSkip = window.prompt("Are you sure you want to quit?");
+            if(confirmSkip){
+                window.alert(playerName + " has chosen to skip the fight!");
+                playerMoney -= 2;
             }
             else {
-                fight();
+                fight(enemyName);
             }
-
-    }
-
-    //they need to enter a viable option!
-    else {
-        window.alert("You'll need to enter a viable option!")
-    }
+      } else {
+        window.alert("You need to pick a valid option. Try again!");
+      }
 }
 
 //run function
-fight();
+//fight();
+    for(var i=0; i<enemyNames.length; i++){
+        fight(enemyNames[i]);
+    }
+
