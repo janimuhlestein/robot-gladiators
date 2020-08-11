@@ -41,6 +41,7 @@ var fight = function(enemyName) {
   
         // award player money for winning
         playerMoney = playerMoney + 20;
+        console.log(playerName + " was awarded 20 for winning!");
   
         // leave while() loop since enemy is dead
         break;
@@ -66,7 +67,13 @@ var fight = function(enemyName) {
   };
 
 for(i=0; i < enemyNames.length; i++){
+    if(playerHealth > 0){
+        window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
+    } else {
+        window.alert("You lost your robot in battle. Game over!");
+        break;
+    }
     fight(enemyNames[i]);
-    enemyHealth=50;
-    console.log(enemyNames[i]);
+    console.log(enemyNames[i])
+    enemyHealth=50;;
 }
