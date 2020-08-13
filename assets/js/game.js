@@ -10,22 +10,8 @@ var fight = function(enemy) {
   console.log(enemy);
     while (playerInfo.health > 0 && enemy.health > 0) {
       // ask user if they'd liked to fight or run
-      var promptFight = window.prompt('Would you like FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
-  
-      // if user picks "skip" confirm and then stop the loop
-      if (promptFight === "skip" || promptFight === "SKIP") {
-        // confirm user wants to skip
-        var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-  
-        // if yes (true), leave fight
-        if (confirmSkip) {
-          window.alert(playerInfo.name + ' has decided to skip this fight. Goodbye!');
-          // subtract money from playerMoney for skipping
-          //playerMoney = playerMoney - 10;
-          playerInfo.money = Math.max(0, playerInfo.money -= 10);
-          console.log("playerMoney", playerInfo.money)
-          break;
-        }
+      if(fightOrSkip()) {
+        break;
       }
   
       // remove enemy's health by subtracting the amount set in the playerAttack variable
@@ -70,7 +56,6 @@ var fight = function(enemy) {
   };
 
   var getPlayerName = function() {
-    debugger;
     var name = "";
     while(name==="" || name === null) {
       name = window.prompt("What is your robot's name?");
@@ -129,6 +114,28 @@ var fight = function(enemy) {
     }
   
   ];
+
+  var fightOrSkip = function() {
+    debugger;
+    var promptFight = window.prompt('Would you like FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+   if(promptFight === "" | promptFight === null) {
+     window.alert("You need to provide a valid answer. Please try again.");
+     console.log(promptFight);
+     return promptFight;
+   }
+    promptFight = promptFight.toLowerCase();
+   if(promptFight === "skip"){
+     var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+     if(confirmSkip) {
+       window.alert(playerInfo.name + " has decided to skip this fight");
+       //subtract money for skipping
+       playerInfo.money -= 10;
+       return true;
+     }
+     return false;
+   }
+
+  }
 
 
 var startGame = function() { 
